@@ -1,16 +1,16 @@
 <?php
-// Railway automatically provides these environment variables when you link the database.
-// If they don't exist (like on your local XAMPP), it falls back to your local settings.
-$host   = getenv('MYSQLHOST') ?: "localhost";
-$user   = getenv('MYSQLUSER') ?: "root";
+// 1. Environment variables from Railway (will use local XAMPP defaults if offline)
+$host   = getenv('MYSQLHOST')     ?: "localhost";
+$user   = getenv('MYSQLUSER')     ?: "root";
 $pass   = getenv('MYSQLPASSWORD') ?: "";
-$dbname = getenv('MYSQLDATABASE') ?: "ai health passport"; 
-$port   = getenv('MYSQLPORT') ?: "3306"; // Railway uses a dynamic port; XAMPP defaults to 3306
+$dbname = getenv('MYSQLDATABASE') ?: "AI_health_smart_passport"; // Cleaned & matched to your local schema name
+$port   = getenv('MYSQLPORT')     ?: "3306"; 
 
-// Establish the connection, including the port
+// 2. Establish the connection using all active server parameters
 $conn = mysqli_connect($host, $user, $pass, $dbname, $port);
 
+// 3. Robust error testing block to ensure database stability
 if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+    die("Database Connection failed: " . mysqli_connect_error());
 }
 ?>
